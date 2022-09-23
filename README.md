@@ -9,7 +9,7 @@
 - Inicio: 22.SETIEMBRE.2022
 - Aula virtual: https://www.virtualfieecs.pe/
 - Delegado: 
-- Subdelegado 1: 
+- Subdelegado 1: Maria Del Cielo Lozada Perez
 - Subdelegado 2: 
 
 

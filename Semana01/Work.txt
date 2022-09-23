@@ -1,0 +1,9 @@
+Practica 1: SQL
+Practica 2: Diseño y analisis de sistemas
+Examen Parcial
+Practica 3: Analisis del proyecto
+PRactica 4: Desarrollo del proyecto
+Examen Final: Teoria Java y Desarroolar un caso pequeño
+
+FIEECSUNI-PC
+192.168.33.28
