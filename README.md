@@ -10,7 +10,7 @@
 - Aula virtual: https://www.virtualfieecs.pe/
 - Delegado: 
 - Subdelegado 1: Maria Del Cielo Lozada Perez
-- Subdelegado 2: 
+- Subdelegado 2: Dante Guillermo Barreto Daza
 
 
 # DOCENTE
