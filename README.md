@@ -8,7 +8,7 @@
 - Horario 2: VIE de 3 a 6 pm (Teoria)
 - Inicio: 22.SETIEMBRE.2022
 - Aula virtual: https://www.virtualfieecs.pe/
-- Delegado: 
+- Delegado: Isaias Pedro Cruz Reyes
 - Subdelegado 1: Maria Del Cielo Lozada Perez
 - Subdelegado 2: Dante Guillermo Barreto Daza
 
