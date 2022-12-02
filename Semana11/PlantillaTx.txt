@@ -1,0 +1,20 @@
+     Connection cn = null;
+      PreparedStatement pstm = null;
+      ResultSet rs = null;
+      String sql = null;
+      try {
+         // Inicio de Tx
+         cn = AccesoDB.getConnection();
+         
+         // Confirmar de Tx
+         cn.commit();
+      } catch (SQLException e) {
+         
+      } catch (Exception e) {
+         
+      }finally{
+         try {
+            cn.close();
+         } catch (Exception e) {
+         }
+      }
