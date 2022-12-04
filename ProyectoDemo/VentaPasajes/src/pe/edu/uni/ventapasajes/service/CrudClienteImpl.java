@@ -17,6 +17,8 @@ public class CrudClienteImpl implements CrudServiceSpec<ClienteModel>, RowMapper
 
    private final String SELECT_BASE = "SELECT IDCLIENTE,NOMBRE,APELLIDO,DNI,DISTRITO,CORREO,TELEFONO FROM CLIENTE";
    private final String INSERT = "INSERT INTO CLIENTE(IDCLIENTE,NOMBRE,APELLIDO,DNI,DISTRITO,CORREO,TELEFONO) VALUES(?,?,?,?,?,?,?)";
+   private final String UPDATE = "UPDATE CLIENTE SET NOMBRE=?,APELLIDO=?,DNI=?,DISTRITO=?,CORREO=?,TELEFONO=? WHERE IDCLIENTE=?";
+   private final String DELETE = "DELETE FROM CLIENTE WHERE IDCLIENTE=?";
    
    @Override
    public ClienteModel findById(Integer id) {
@@ -160,7 +162,7 @@ public class CrudClienteImpl implements CrudServiceSpec<ClienteModel>, RowMapper
          model.setId(id);
          pstm.close();
          // Insertar el cliente
-         pstm = cn.prepareStatement(sql);
+         pstm = cn.prepareStatement(INSERT);
          pstm.setInt(1, id);
          pstm.setString(2, model.getNombre());
          pstm.setString(3, model.getApellido());
@@ -195,12 +197,88 @@ public class CrudClienteImpl implements CrudServiceSpec<ClienteModel>, RowMapper
    
    @Override
    public void update(ClienteModel model) {
-      throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+      Connection cn = null;
+      PreparedStatement pstm;
+      int filas;
+      try {
+         // Inicio de Tx
+         cn = AccesoDB.getConnection();
+         cn.setAutoCommit(false); // Inportante para controlar Tx
+         // Falta validaciones
+         
+         // Actualizar el cliente
+         pstm = cn.prepareStatement(UPDATE);
+         pstm.setString(1, model.getNombre());
+         pstm.setString(2, model.getApellido());
+         pstm.setString(3, model.getDni());
+         pstm.setString(4, model.getDistrito());
+         pstm.setString(5, model.getCorreo());
+         pstm.setString(6, model.getTelefono());
+         pstm.setInt(7, model.getId());
+         filas = pstm.executeUpdate();
+         if(filas != 1){
+            throw new SQLException("No eexiste el cliente.");
+         }
+         pstm.close();
+         // Confirmar de Tx
+         cn.commit();
+      } catch (SQLException e) {
+         try {
+            cn.rollback();
+         } catch (Exception e1) {
+         }
+         throw new RuntimeException(e.getMessage());
+      } catch (Exception e) {
+         try {
+            cn.rollback();
+         } catch (Exception e1) {
+         }
+         throw new RuntimeException("Error en la base de datos, intentelo en 5 minutos.");
+      }finally{
+         try {
+            cn.close();
+         } catch (Exception e) {
+         }
+      }
    }
 
    @Override
    public void delete(Integer id) {
-      throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+      Connection cn = null;
+      PreparedStatement pstm;
+      int filas;
+      try {
+         // Inicio de Tx
+         cn = AccesoDB.getConnection();
+         cn.setAutoCommit(false); // Inportante para controlar Tx
+         // Actualizar el cliente
+         pstm = cn.prepareStatement(DELETE);
+         pstm.setInt(1, id);
+         filas = pstm.executeUpdate();
+         pstm.close();
+         if(filas != 1){
+            throw new SQLException("No eexiste el cliente.");
+         }
+         // Confirmar de Tx
+         cn.commit();
+      } catch (SQLException e) {
+         try {
+            cn.rollback();
+         } catch (Exception e1) {
+         }
+         throw new RuntimeException(e.getMessage());
+      } catch (Exception e) {
+         try {
+            cn.rollback();
+         } catch (Exception e1) {
+         }
+         throw new RuntimeException("Error en la base de datos, intentelo en 5 minutos.");
+      }finally{
+         try {
+            cn.close();
+         } catch (Exception e) {
+         }
+      }
    }
 
    @Override
