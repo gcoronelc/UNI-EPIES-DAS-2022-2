@@ -2,6 +2,7 @@ package pe.edu.uni.ventapasajes.view;
 
 import javax.swing.JOptionPane;
 import pe.edu.uni.ventapasajes.controller.LogonController;
+import pe.edu.uni.ventapasajes.util.Mensaje;
 
 /**
  *
@@ -44,11 +45,13 @@ public class LogonView extends javax.swing.JDialog {
       jLabel1.setText("Usuario");
 
       txtUsuario.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+      txtUsuario.setText("pcastro");
 
       jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
       jLabel2.setText("Clave");
 
       txtClave.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+      txtClave.setText("cazador");
 
       javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
       jPanel1.setLayout(jPanel1Layout);
@@ -153,15 +156,14 @@ public class LogonView extends javax.swing.JDialog {
          // Datos
          String usuario = txtUsuario.getText();
          String clave = new String(txtClave.getPassword());
-         System.err.println("Clave: " + clave);
          // Validacion
          LogonController controller = new LogonController();
-         controller.validar(usuario, clave);;
+         controller.validar(usuario, clave);
          // Mostrar la ventana principal
          MainView.main(null);
          this.dispose();
       } catch (Exception e) {
-         JOptionPane.showMessageDialog(null, e.getMessage());
+         Mensaje.error(this, e.getMessage());
       }
    }//GEN-LAST:event_btnIngresarActionPerformed
 

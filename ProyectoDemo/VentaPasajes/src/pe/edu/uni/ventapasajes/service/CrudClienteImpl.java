@@ -91,9 +91,11 @@ public class CrudClienteImpl implements CrudServiceSpec<ClienteModel>, RowMapper
          model.setApellido("");
       }
       model.setApellido("%" + model.getApellido() + "%");
+      
       if (model.getNombre() == null) {
          model.setNombre("");
       }
+      
       model.setNombre("%" + model.getNombre() + "%");
       // Programacion
       List<ClienteModel> lista = new ArrayList<>();

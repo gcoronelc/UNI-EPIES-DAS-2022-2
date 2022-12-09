@@ -1,8 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/MDIApplication.java to edit this template
- */
 package pe.edu.uni.ventapasajes.view;
+
+import javax.swing.JInternalFrame;
+import pe.edu.uni.ventapasajes.model.UsuarioModel;
+import pe.edu.uni.ventapasajes.util.Session;
 
 /**
  *
@@ -15,6 +15,15 @@ public class MainView extends javax.swing.JFrame {
     */
    public MainView() {
       initComponents();
+      establecerTitulo();
+      this.setExtendedState(MAXIMIZED_BOTH);
+   }
+
+   private void establecerTitulo() {
+      UsuarioModel usuario = (UsuarioModel) Session.get("usuario");
+      String titulo = "VENTA DE PASAJES";
+      titulo += " [ Usuario: " + usuario.getUsuario() + " ] ";
+      this.setTitle(titulo);
    }
 
    /**
@@ -27,39 +36,21 @@ public class MainView extends javax.swing.JFrame {
       desktopPane = new javax.swing.JDesktopPane();
       menuBar = new javax.swing.JMenuBar();
       fileMenu = new javax.swing.JMenu();
-      openMenuItem = new javax.swing.JMenuItem();
-      saveMenuItem = new javax.swing.JMenuItem();
-      saveAsMenuItem = new javax.swing.JMenuItem();
       exitMenuItem = new javax.swing.JMenuItem();
-      editMenu = new javax.swing.JMenu();
-      cutMenuItem = new javax.swing.JMenuItem();
-      copyMenuItem = new javax.swing.JMenuItem();
-      pasteMenuItem = new javax.swing.JMenuItem();
-      deleteMenuItem = new javax.swing.JMenuItem();
-      helpMenu = new javax.swing.JMenu();
-      contentMenuItem = new javax.swing.JMenuItem();
-      aboutMenuItem = new javax.swing.JMenuItem();
+      menuProcesos = new javax.swing.JMenu();
+      menuTablas = new javax.swing.JMenu();
+      menuTablasClientes = new javax.swing.JMenuItem();
+      menuTablasTripulacion = new javax.swing.JMenuItem();
+      menuTablasEmpleado = new javax.swing.JMenuItem();
+      menuConsultas = new javax.swing.JMenu();
 
       setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
       fileMenu.setMnemonic('f');
-      fileMenu.setText("File");
-
-      openMenuItem.setMnemonic('o');
-      openMenuItem.setText("Open");
-      fileMenu.add(openMenuItem);
-
-      saveMenuItem.setMnemonic('s');
-      saveMenuItem.setText("Save");
-      fileMenu.add(saveMenuItem);
-
-      saveAsMenuItem.setMnemonic('a');
-      saveAsMenuItem.setText("Save As ...");
-      saveAsMenuItem.setDisplayedMnemonicIndex(5);
-      fileMenu.add(saveAsMenuItem);
+      fileMenu.setText("Archivo");
 
       exitMenuItem.setMnemonic('x');
-      exitMenuItem.setText("Exit");
+      exitMenuItem.setText("Salir");
       exitMenuItem.addActionListener(new java.awt.event.ActionListener() {
          public void actionPerformed(java.awt.event.ActionEvent evt) {
             exitMenuItemActionPerformed(evt);
@@ -69,39 +60,39 @@ public class MainView extends javax.swing.JFrame {
 
       menuBar.add(fileMenu);
 
-      editMenu.setMnemonic('e');
-      editMenu.setText("Edit");
+      menuProcesos.setText("Procesos");
+      menuBar.add(menuProcesos);
 
-      cutMenuItem.setMnemonic('t');
-      cutMenuItem.setText("Cut");
-      editMenu.add(cutMenuItem);
+      menuTablas.setText("Tablas");
 
-      copyMenuItem.setMnemonic('y');
-      copyMenuItem.setText("Copy");
-      editMenu.add(copyMenuItem);
+      menuTablasClientes.setText("Clientes");
+      menuTablasClientes.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            menuTablasClientesActionPerformed(evt);
+         }
+      });
+      menuTablas.add(menuTablasClientes);
 
-      pasteMenuItem.setMnemonic('p');
-      pasteMenuItem.setText("Paste");
-      editMenu.add(pasteMenuItem);
+      menuTablasTripulacion.setText("Tripulación");
+      menuTablasTripulacion.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            menuTablasTripulacionActionPerformed(evt);
+         }
+      });
+      menuTablas.add(menuTablasTripulacion);
 
-      deleteMenuItem.setMnemonic('d');
-      deleteMenuItem.setText("Delete");
-      editMenu.add(deleteMenuItem);
+      menuTablasEmpleado.setText("Empleado");
+      menuTablasEmpleado.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            menuTablasEmpleadoActionPerformed(evt);
+         }
+      });
+      menuTablas.add(menuTablasEmpleado);
 
-      menuBar.add(editMenu);
+      menuBar.add(menuTablas);
 
-      helpMenu.setMnemonic('h');
-      helpMenu.setText("Help");
-
-      contentMenuItem.setMnemonic('c');
-      contentMenuItem.setText("Contents");
-      helpMenu.add(contentMenuItem);
-
-      aboutMenuItem.setMnemonic('a');
-      aboutMenuItem.setText("About");
-      helpMenu.add(aboutMenuItem);
-
-      menuBar.add(helpMenu);
+      menuConsultas.setText("Consultas");
+      menuBar.add(menuConsultas);
 
       setJMenuBar(menuBar);
 
@@ -122,6 +113,18 @@ public class MainView extends javax.swing.JFrame {
     private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
        System.exit(0);
     }//GEN-LAST:event_exitMenuItemActionPerformed
+
+   private void menuTablasClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuTablasClientesActionPerformed
+      mostrarForm(CrudClientesView.class);
+   }//GEN-LAST:event_menuTablasClientesActionPerformed
+
+   private void menuTablasTripulacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuTablasTripulacionActionPerformed
+      mostrarForm(CrudTripulacionView.class);
+   }//GEN-LAST:event_menuTablasTripulacionActionPerformed
+
+   private void menuTablasEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuTablasEmpleadoActionPerformed
+      mostrarForm(CrudEmpleadoView.class);
+   }//GEN-LAST:event_menuTablasEmpleadoActionPerformed
 
    /**
     * @param args the command line arguments
@@ -159,21 +162,38 @@ public class MainView extends javax.swing.JFrame {
    }
 
    // Variables declaration - do not modify//GEN-BEGIN:variables
-   private javax.swing.JMenuItem aboutMenuItem;
-   private javax.swing.JMenuItem contentMenuItem;
-   private javax.swing.JMenuItem copyMenuItem;
-   private javax.swing.JMenuItem cutMenuItem;
-   private javax.swing.JMenuItem deleteMenuItem;
    private javax.swing.JDesktopPane desktopPane;
-   private javax.swing.JMenu editMenu;
    private javax.swing.JMenuItem exitMenuItem;
    private javax.swing.JMenu fileMenu;
-   private javax.swing.JMenu helpMenu;
    private javax.swing.JMenuBar menuBar;
-   private javax.swing.JMenuItem openMenuItem;
-   private javax.swing.JMenuItem pasteMenuItem;
-   private javax.swing.JMenuItem saveAsMenuItem;
-   private javax.swing.JMenuItem saveMenuItem;
+   private javax.swing.JMenu menuConsultas;
+   private javax.swing.JMenu menuProcesos;
+   private javax.swing.JMenu menuTablas;
+   private javax.swing.JMenuItem menuTablasClientes;
+   private javax.swing.JMenuItem menuTablasEmpleado;
+   private javax.swing.JMenuItem menuTablasTripulacion;
    // End of variables declaration//GEN-END:variables
 
+   private void mostrarForm(Class<?> aClass) {
+      try {
+         // Variable de control
+         JInternalFrame view = null;
+         // Buscar instancia
+         for (JInternalFrame form : desktopPane.getAllFrames()) {
+            if (aClass.isInstance(form)) {
+               view = form;
+               break;
+            }
+         }
+         // Crear instancia
+         if (view == null) {
+            view = (JInternalFrame) aClass.getConstructor().newInstance();
+            desktopPane.add(view);
+            view.setVisible(true);
+            view.setMaximum(true);
+         }
+         view.setSelected(true);
+      } catch (Exception e) {
+      }
+   }
 }
