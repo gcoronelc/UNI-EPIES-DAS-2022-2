@@ -1,10 +1,13 @@
 package pe.edu.uni.ventapasajes.view;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import pe.edu.uni.autoventas.util.UtilView;
 import pe.edu.uni.ventapasajes.controller.CrudClienteController;
 import pe.edu.uni.ventapasajes.model.ClienteModel;
 import pe.edu.uni.ventapasajes.util.Mensaje;
+import pe.edu.uni.ventapasajes.util.Session;
 
 /**
  *
@@ -12,7 +15,7 @@ import pe.edu.uni.ventapasajes.util.Mensaje;
  */
 public class CrudClientesView extends javax.swing.JInternalFrame {
    
-   private List<ClienteModel> listaClientes = null;
+   private List<ClienteModel> listaClientes = new ArrayList<>();
    private CrudClienteController clienteController;
 
    /**
@@ -37,12 +40,13 @@ public class CrudClientesView extends javax.swing.JInternalFrame {
       txtNombre = new javax.swing.JTextField();
       txtId = new javax.swing.JTextField();
       txtApellido = new javax.swing.JTextField();
-      jButton1 = new javax.swing.JButton();
-      jButton2 = new javax.swing.JButton();
-      jButton3 = new javax.swing.JButton();
-      jButton4 = new javax.swing.JButton();
-      jButton5 = new javax.swing.JButton();
-      jButton6 = new javax.swing.JButton();
+      btnBuscar = new javax.swing.JButton();
+      btnNuevo = new javax.swing.JButton();
+      btnEditar = new javax.swing.JButton();
+      btnEliminar = new javax.swing.JButton();
+      btnExcel = new javax.swing.JButton();
+      btnPDF = new javax.swing.JButton();
+      btnSalir = new javax.swing.JButton();
       jPanel2 = new javax.swing.JPanel();
       jScrollPane1 = new javax.swing.JScrollPane();
       tblClientes = new javax.swing.JTable();
@@ -69,28 +73,51 @@ public class CrudClientesView extends javax.swing.JInternalFrame {
 
       txtApellido.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-      jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/edu/uni/ventapasajes/imagenes/buscar.png"))); // NOI18N
-      jButton1.setToolTipText("Buscar empleados");
-      jButton1.addActionListener(new java.awt.event.ActionListener() {
+      btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/edu/uni/ventapasajes/imagenes/buscar.png"))); // NOI18N
+      btnBuscar.setToolTipText("Buscar empleados");
+      btnBuscar.addActionListener(new java.awt.event.ActionListener() {
          public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jButton1ActionPerformed(evt);
+            btnBuscarActionPerformed(evt);
          }
       });
 
-      jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/edu/uni/ventapasajes/imagenes/nuevo.png"))); // NOI18N
-      jButton2.setToolTipText("Nuevo empleado");
+      btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/edu/uni/ventapasajes/imagenes/nuevo.png"))); // NOI18N
+      btnNuevo.setToolTipText("Nuevo empleado");
+      btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btnNuevoActionPerformed(evt);
+         }
+      });
 
-      jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/edu/uni/ventapasajes/imagenes/editar.png"))); // NOI18N
-      jButton3.setToolTipText("Editar empleado");
+      btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/edu/uni/ventapasajes/imagenes/editar.png"))); // NOI18N
+      btnEditar.setToolTipText("Editar empleado");
+      btnEditar.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btnEditarActionPerformed(evt);
+         }
+      });
 
-      jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/edu/uni/ventapasajes/imagenes/tacho.png"))); // NOI18N
-      jButton4.setToolTipText("Eliminar empleado");
+      btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/edu/uni/ventapasajes/imagenes/tacho.png"))); // NOI18N
+      btnEliminar.setToolTipText("Eliminar empleado");
+      btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btnEliminarActionPerformed(evt);
+         }
+      });
 
-      jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/edu/uni/ventapasajes/imagenes/excel.png"))); // NOI18N
-      jButton5.setToolTipText("Exportar a excel");
+      btnExcel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/edu/uni/ventapasajes/imagenes/excel.png"))); // NOI18N
+      btnExcel.setToolTipText("Exportar a excel");
 
-      jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/edu/uni/ventapasajes/imagenes/pdf.png"))); // NOI18N
-      jButton6.setToolTipText("Exportar a PDF");
+      btnPDF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/edu/uni/ventapasajes/imagenes/pdf.png"))); // NOI18N
+      btnPDF.setToolTipText("Exportar a PDF");
+
+      btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/edu/uni/ventapasajes/imagenes/cerrar.png"))); // NOI18N
+      btnSalir.setToolTipText("Cerrar ventana");
+      btnSalir.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btnSalirActionPerformed(evt);
+         }
+      });
 
       javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
       jPanel1.setLayout(jPanel1Layout);
@@ -112,18 +139,20 @@ public class CrudClientesView extends javax.swing.JInternalFrame {
                   .addGap(12, 12, 12)
                   .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(btnExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(86, Short.MAX_VALUE))
+            .addComponent(btnPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addContainerGap(199, Short.MAX_VALUE))
       );
       jPanel1Layout.setVerticalGroup(
          jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -141,23 +170,21 @@ public class CrudClientesView extends javax.swing.JInternalFrame {
                      .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                      .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                   .addGap(0, 0, Short.MAX_VALUE))
-               .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-               .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-               .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-               .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-               .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-               .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+               .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+               .addComponent(btnNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+               .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+               .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+               .addComponent(btnExcel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+               .addComponent(btnPDF, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+               .addComponent(btnSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addContainerGap())
       );
 
-      jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Control", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI", 1, 24), new java.awt.Color(0, 153, 255))); // NOI18N
+      jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Listado de Clientes", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Segoe UI", 1, 24), new java.awt.Color(0, 153, 255))); // NOI18N
 
       tblClientes.setModel(new javax.swing.table.DefaultTableModel(
          new Object [][] {
-            {null, null, null, null},
-            {null, null, null, null},
-            {null, null, null, null},
-            {null, null, null, null}
+
          },
          new String [] {
             "ID", "NOMBRE", "APELLIDO", "CORREO"
@@ -228,15 +255,23 @@ public class CrudClientesView extends javax.swing.JInternalFrame {
       pack();
    }// </editor-fold>//GEN-END:initComponents
 
-   private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+   private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
       try {
          // Datos
+         String id = txtId.getText().trim();
+         String nombre = txtNombre.getText().trim();
+         String apellido = txtApellido.getText().trim();
+         // Validar datos
+         if(id.isEmpty() && nombre.isEmpty() && apellido.isEmpty()){
+            throw new Exception("No ha ingresado ningún criterio de filtro.");
+         }
+         // Datos
          ClienteModel model = new ClienteModel();
-         if( txtId.getText().length()>0){
-            model.setId( Integer.parseInt(txtId.getText()));
+         if( id.length()>0){
+            model.setId(Integer.valueOf(id));
          } 
-         model.setNombre(txtNombre.getText());
-         model.setApellido(txtApellido.getText());
+         model.setNombre(nombre);
+         model.setApellido(apellido);
          // Proceso
          listaClientes = clienteController.find(model);
          // Mostrar en la tabla
@@ -244,16 +279,76 @@ public class CrudClientesView extends javax.swing.JInternalFrame {
       } catch (Exception e) {
          Mensaje.error(this, e.getMessage());
       }
-   }//GEN-LAST:event_jButton1ActionPerformed
+   }//GEN-LAST:event_btnBuscarActionPerformed
+
+   private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+      this.dispose();
+   }//GEN-LAST:event_btnSalirActionPerformed
+
+   private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+      CrudClientesEditView view = new CrudClientesEditView(null, true);
+      Session.put("clienteModel", null); // Nuevo cliente
+      view.setAccion(UtilView.CRUD_NUEVO); // La acción es nuevo cliente
+      Session.put("aceptar", "0"); // 1 se ejecuto la accion
+      view.setVisible(true);
+      if(Session.get("aceptar").toString().equals("0")){
+         return;
+      }
+      listaClientes.add(0,(ClienteModel) Session.get("clienteModel"));
+      mostrarListaClientes();
+   }//GEN-LAST:event_btnNuevoActionPerformed
+
+   private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+      if(listaClientes.isEmpty()){
+         return;
+      }
+      int fila = tblClientes.getSelectedRow();
+      if(fila==-1){
+         return;
+      }
+      ClienteModel model = listaClientes.get(fila);
+      CrudClientesEditView view = new CrudClientesEditView(null, true);
+      Session.put("clienteModel", model); // El cliente a editar
+      view.setAccion(UtilView.CRUD_EDITAR); // La acción es editar cliente
+      Session.put("aceptar", "0"); // 1 se ejecuto la accion
+      view.setVisible(true);
+      if(Session.get("aceptar").toString().equals("0")){
+         return;
+      }
+      listaClientes.set(fila,(ClienteModel) Session.get("clienteModel"));
+      mostrarListaClientes();
+   }//GEN-LAST:event_btnEditarActionPerformed
+
+   private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+      if(listaClientes.isEmpty()){
+         return;
+      }
+      int fila = tblClientes.getSelectedRow();
+      if(fila==-1){
+         return;
+      }
+      ClienteModel model = listaClientes.get(fila);
+      CrudClientesEditView view = new CrudClientesEditView(null, true);
+      Session.put("clienteModel", model); // El cliente a eliminar
+      view.setAccion(UtilView.CRUD_ELIMINAR); // La acción es eliminar cliente
+      Session.put("aceptar", "0"); // 1 se ejecuto la accion
+      view.setVisible(true);
+      if(Session.get("aceptar").toString().equals("0")){
+         return;
+      }
+      listaClientes.remove(fila);
+      mostrarListaClientes();
+   }//GEN-LAST:event_btnEliminarActionPerformed
 
 
    // Variables declaration - do not modify//GEN-BEGIN:variables
-   private javax.swing.JButton jButton1;
-   private javax.swing.JButton jButton2;
-   private javax.swing.JButton jButton3;
-   private javax.swing.JButton jButton4;
-   private javax.swing.JButton jButton5;
-   private javax.swing.JButton jButton6;
+   private javax.swing.JButton btnBuscar;
+   private javax.swing.JButton btnEditar;
+   private javax.swing.JButton btnEliminar;
+   private javax.swing.JButton btnExcel;
+   private javax.swing.JButton btnNuevo;
+   private javax.swing.JButton btnPDF;
+   private javax.swing.JButton btnSalir;
    private javax.swing.JLabel jLabel1;
    private javax.swing.JLabel jLabel2;
    private javax.swing.JLabel jLabel3;

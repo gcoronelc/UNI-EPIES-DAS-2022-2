@@ -2,7 +2,6 @@ package pe.edu.uni.ventapasajes.controller;
 
 import java.util.List;
 import pe.edu.uni.ventapasajes.model.ClienteModel;
-import pe.edu.uni.ventapasajes.model.EmpleadoModel;
 import pe.edu.uni.ventapasajes.service.CrudClienteImpl;
 
 /**
@@ -29,15 +28,15 @@ public class CrudClienteController {
       return crudService.find(model);
    }
 
-   void insert(ClienteModel model) {
+   public void insert(ClienteModel model) {
       crudService.insert(model);
    }
 
-   void update(ClienteModel model) {
+   public void update(ClienteModel model) {
       crudService.update(model);
    }
 
-   void delete(Integer id) {
+   public void delete(Integer id) {
       crudService.delete(id);
    }
 }
