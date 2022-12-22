@@ -1,6 +1,5 @@
 package pe.edu.uni.ventapasajes.pruebas;
 
-import pe.edu.uni.ventapasajes.model.ClienteModel;
 import pe.edu.uni.ventapasajes.service.CrudClienteImpl;
 
 /**

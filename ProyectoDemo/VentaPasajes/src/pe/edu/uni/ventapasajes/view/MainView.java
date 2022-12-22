@@ -38,6 +38,7 @@ public class MainView extends javax.swing.JFrame {
       fileMenu = new javax.swing.JMenu();
       exitMenuItem = new javax.swing.JMenuItem();
       menuProcesos = new javax.swing.JMenu();
+      menuProcesosCrearRuta = new javax.swing.JMenuItem();
       menuTablas = new javax.swing.JMenu();
       menuTablasClientes = new javax.swing.JMenuItem();
       menuTablasTripulacion = new javax.swing.JMenuItem();
@@ -61,6 +62,15 @@ public class MainView extends javax.swing.JFrame {
       menuBar.add(fileMenu);
 
       menuProcesos.setText("Procesos");
+
+      menuProcesosCrearRuta.setText("Crear ruta");
+      menuProcesosCrearRuta.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            menuProcesosCrearRutaActionPerformed(evt);
+         }
+      });
+      menuProcesos.add(menuProcesosCrearRuta);
+
       menuBar.add(menuProcesos);
 
       menuTablas.setText("Tablas");
@@ -126,6 +136,10 @@ public class MainView extends javax.swing.JFrame {
       mostrarForm(CrudEmpleadoView.class);
    }//GEN-LAST:event_menuTablasEmpleadoActionPerformed
 
+   private void menuProcesosCrearRutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuProcesosCrearRutaActionPerformed
+      mostrarForm(ProcCreaRutaView.class);
+   }//GEN-LAST:event_menuProcesosCrearRutaActionPerformed
+
    /**
     * @param args the command line arguments
     */
@@ -168,6 +182,7 @@ public class MainView extends javax.swing.JFrame {
    private javax.swing.JMenuBar menuBar;
    private javax.swing.JMenu menuConsultas;
    private javax.swing.JMenu menuProcesos;
+   private javax.swing.JMenuItem menuProcesosCrearRuta;
    private javax.swing.JMenu menuTablas;
    private javax.swing.JMenuItem menuTablasClientes;
    private javax.swing.JMenuItem menuTablasEmpleado;

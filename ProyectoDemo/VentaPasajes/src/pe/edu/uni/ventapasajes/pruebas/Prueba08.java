@@ -1,7 +1,6 @@
 package pe.edu.uni.ventapasajes.pruebas;
 
 import pe.edu.uni.ventapasajes.model.UsuarioModel;
-import pe.edu.uni.ventapasajes.service.CrudClienteImpl;
 import pe.edu.uni.ventapasajes.service.LogueoService;
 
 /**
