@@ -1,6 +1,9 @@
 package pe.edu.uni.ventapasajes.view;
 
+import pe.edu.uni.autoventas.util.UtilView;
+import pe.edu.uni.ventapasajes.controller.ConsultaController;
 import pe.edu.uni.ventapasajes.controller.SistemaController;
+import pe.edu.uni.ventapasajes.model.ComboModel;
 import pe.edu.uni.ventapasajes.model.RutaModel;
 import pe.edu.uni.ventapasajes.model.UsuarioModel;
 import pe.edu.uni.ventapasajes.util.Mensaje;
@@ -11,8 +14,9 @@ import pe.edu.uni.ventapasajes.util.Session;
  * @author Gustavo Coronel
  */
 public class ProcCreaRutaView extends javax.swing.JInternalFrame {
-   
-   private SistemaController sistemaController;
+
+   private final SistemaController sistemaController;
+   private final ConsultaController consultaController;
 
    /**
     * Creates new form CrudClientesView
@@ -20,6 +24,12 @@ public class ProcCreaRutaView extends javax.swing.JInternalFrame {
    public ProcCreaRutaView() {
       initComponents();
       sistemaController = new SistemaController();
+      consultaController = new ConsultaController();
+      cargaComboOrigen();
+   }
+
+   private void cargaComboOrigen() {
+      UtilView.llenarCombo(cboOrigen, consultaController.leerCiudades());
    }
 
    /**
@@ -36,9 +46,7 @@ public class ProcCreaRutaView extends javax.swing.JInternalFrame {
       jLabel1 = new javax.swing.JLabel();
       txtNombre = new javax.swing.JTextField();
       jLabel2 = new javax.swing.JLabel();
-      txtOrigen = new javax.swing.JTextField();
       jLabel3 = new javax.swing.JLabel();
-      txtDestino = new javax.swing.JTextField();
       txtDuracion = new javax.swing.JTextField();
       jLabel4 = new javax.swing.JLabel();
       jLabel5 = new javax.swing.JLabel();
@@ -47,6 +55,8 @@ public class ProcCreaRutaView extends javax.swing.JInternalFrame {
       jLabel6 = new javax.swing.JLabel();
       txtPrecio3 = new javax.swing.JTextField();
       jLabel7 = new javax.swing.JLabel();
+      cboOrigen = new javax.swing.JComboBox<>();
+      cboDestino = new javax.swing.JComboBox<>();
 
       setClosable(true);
       setMaximizable(true);
@@ -105,12 +115,8 @@ public class ProcCreaRutaView extends javax.swing.JInternalFrame {
       jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
       jLabel2.setText("Origen");
 
-      txtOrigen.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-
       jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
       jLabel3.setText("Destino");
-
-      txtDestino.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
       txtDuracion.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
@@ -132,13 +138,22 @@ public class ProcCreaRutaView extends javax.swing.JInternalFrame {
       jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
       jLabel7.setText("Precio 3");
 
+      cboOrigen.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+      cboOrigen.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            cboOrigenActionPerformed(evt);
+         }
+      });
+
+      cboDestino.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+
       javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
       jPanel2.setLayout(jPanel2Layout);
       jPanel2Layout.setHorizontalGroup(
          jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
          .addGroup(jPanel2Layout.createSequentialGroup()
             .addGap(36, 36, 36)
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                .addGroup(jPanel2Layout.createSequentialGroup()
                   .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                   .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -146,11 +161,11 @@ public class ProcCreaRutaView extends javax.swing.JInternalFrame {
                .addGroup(jPanel2Layout.createSequentialGroup()
                   .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                   .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                  .addComponent(txtOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE))
+                  .addComponent(cboOrigen, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                .addGroup(jPanel2Layout.createSequentialGroup()
                   .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                   .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                  .addComponent(txtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE))
+                  .addComponent(cboDestino, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                .addGroup(jPanel2Layout.createSequentialGroup()
                   .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                   .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -167,7 +182,7 @@ public class ProcCreaRutaView extends javax.swing.JInternalFrame {
                   .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                   .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                   .addComponent(txtPrecio3, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addContainerGap(502, Short.MAX_VALUE))
+            .addContainerGap(181, Short.MAX_VALUE))
       );
       jPanel2Layout.setVerticalGroup(
          jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -179,11 +194,11 @@ public class ProcCreaRutaView extends javax.swing.JInternalFrame {
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-               .addComponent(txtOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+               .addComponent(cboOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-               .addComponent(txtDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+               .addComponent(cboDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -200,7 +215,7 @@ public class ProcCreaRutaView extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                .addComponent(txtPrecio3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addContainerGap(47, Short.MAX_VALUE))
+            .addContainerGap(20, Short.MAX_VALUE))
       );
 
       javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -229,11 +244,14 @@ public class ProcCreaRutaView extends javax.swing.JInternalFrame {
 
    private void btnProcesarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcesarActionPerformed
       try {
+         // Combos
+         ComboModel origen = (ComboModel) cboOrigen.getSelectedItem();
+         ComboModel destino = (ComboModel) cboDestino.getSelectedItem();
          // Datos del formulario
          RutaModel model = new RutaModel();
          model.setNombre(txtNombre.getText());
-         model.setOrigen (Integer.valueOf(txtOrigen.getText()));
-         model.setDestino(Integer.valueOf(txtDestino.getText()));
+         model.setOrigen(origen.getId());
+         model.setDestino(destino.getId());
          model.setDuracion(txtDuracion.getText());
          model.setPrecio1(Double.valueOf(txtPrecio1.getText()));
          model.setPrecio2(Double.valueOf(txtPrecio2.getText()));
@@ -245,6 +263,13 @@ public class ProcCreaRutaView extends javax.swing.JInternalFrame {
          sistemaController.creacionRuta(model);
          Mensaje.info(this, "Ruta creada con ID " + model.getId() + ".");
          // Limpiar los controles falta
+         txtNombre.setText("");
+         cboOrigen.setSelectedIndex(-1);
+         cboDestino.removeAllItems();
+         txtDuracion.setText("");
+         txtPrecio1.setText("");
+         txtPrecio2.setText("");
+         txtPrecio3.setText("");
       } catch (Exception e) {
          Mensaje.error(this, e.getMessage());
       }
@@ -254,10 +279,22 @@ public class ProcCreaRutaView extends javax.swing.JInternalFrame {
       this.dispose();
    }//GEN-LAST:event_btnSalirActionPerformed
 
+   private void cboOrigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboOrigenActionPerformed
+      int index = cboOrigen.getSelectedIndex();
+      if (index == -1) {
+         return;
+      }
+      ComboModel model = (ComboModel) cboOrigen.getSelectedItem();
+      UtilView.llenarCombo(cboDestino, consultaController.leerCiudades(model.getId()));
+
+   }//GEN-LAST:event_cboOrigenActionPerformed
+
 
    // Variables declaration - do not modify//GEN-BEGIN:variables
    private javax.swing.JButton btnProcesar;
    private javax.swing.JButton btnSalir;
+   private javax.swing.JComboBox<ComboModel> cboDestino;
+   private javax.swing.JComboBox<ComboModel> cboOrigen;
    private javax.swing.JLabel jLabel1;
    private javax.swing.JLabel jLabel2;
    private javax.swing.JLabel jLabel3;
@@ -267,14 +304,11 @@ public class ProcCreaRutaView extends javax.swing.JInternalFrame {
    private javax.swing.JLabel jLabel7;
    private javax.swing.JPanel jPanel1;
    private javax.swing.JPanel jPanel2;
-   private javax.swing.JTextField txtDestino;
    private javax.swing.JTextField txtDuracion;
    private javax.swing.JTextField txtNombre;
-   private javax.swing.JTextField txtOrigen;
    private javax.swing.JTextField txtPrecio1;
    private javax.swing.JTextField txtPrecio2;
    private javax.swing.JTextField txtPrecio3;
    // End of variables declaration//GEN-END:variables
 
-   
 }

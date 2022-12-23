@@ -1,5 +1,9 @@
 package pe.edu.uni.autoventas.util;
 
+import java.util.List;
+import javax.swing.JComboBox;
+import pe.edu.uni.ventapasajes.model.ComboModel;
+
 /**
  * @author Eric Gustavo Coronel Castillo
  * @blog www.desarrollasoftware.com
@@ -18,5 +22,14 @@ public class UtilView {
 	public static final String CRUD_EDITAR = "EDITAR";
 	public static final String CRUD_ELIMINAR = "ELIMINAR";
 	
+   
+   public static void llenarCombo(JComboBox<ComboModel> combo, List<ComboModel> lista){
+      combo.removeAllItems();
+      for (ComboModel item : lista) {
+         combo.addItem(item);
+      }
+      combo.setSelectedIndex(-1);
+   }
+   
 
 }
