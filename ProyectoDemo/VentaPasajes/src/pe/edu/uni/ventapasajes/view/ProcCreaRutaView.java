@@ -26,6 +26,7 @@ public class ProcCreaRutaView extends javax.swing.JInternalFrame {
       sistemaController = new SistemaController();
       consultaController = new ConsultaController();
       cargaComboOrigen();
+      establecerNombre();
    }
 
    private void cargaComboOrigen() {
@@ -146,6 +147,11 @@ public class ProcCreaRutaView extends javax.swing.JInternalFrame {
       });
 
       cboDestino.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+      cboDestino.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            cboDestinoActionPerformed(evt);
+         }
+      });
 
       javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
       jPanel2.setLayout(jPanel2Layout);
@@ -192,9 +198,9 @@ public class ProcCreaRutaView extends javax.swing.JInternalFrame {
                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-               .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-               .addComponent(cboOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addComponent(cboOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+               .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -286,8 +292,12 @@ public class ProcCreaRutaView extends javax.swing.JInternalFrame {
       }
       ComboModel model = (ComboModel) cboOrigen.getSelectedItem();
       UtilView.llenarCombo(cboDestino, consultaController.leerCiudades(model.getId()));
-
+      establecerNombre();
    }//GEN-LAST:event_cboOrigenActionPerformed
+
+   private void cboDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboDestinoActionPerformed
+      establecerNombre();
+   }//GEN-LAST:event_cboDestinoActionPerformed
 
 
    // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -311,4 +321,21 @@ public class ProcCreaRutaView extends javax.swing.JInternalFrame {
    private javax.swing.JTextField txtPrecio3;
    // End of variables declaration//GEN-END:variables
 
+   
+   private void establecerNombre(){
+      // Origen
+      ComboModel origen = new ComboModel(0, "NONE");
+      if(cboOrigen.getSelectedIndex()!=-1){
+         origen = (ComboModel) cboOrigen.getSelectedItem();
+      }
+      // Destino
+      ComboModel destino = new ComboModel(0, "NONE");
+      if(cboDestino.getSelectedIndex()!=-1){
+         destino = (ComboModel) cboDestino.getSelectedItem();
+      }
+      // Nombre
+      String nombre = origen.getEtiqueta().toUpperCase() + " - " + destino.getEtiqueta().toUpperCase();
+      txtNombre.setText(nombre);
+   }
+   
 }
